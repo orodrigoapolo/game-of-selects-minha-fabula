@@ -1,3 +1,5 @@
+
+drop database gameofselects;
 CREATE DATABASE gameofselects;
 USE gameofselects;
 
@@ -30,7 +32,7 @@ CREATE TABLE veiculo (
   ano_modelo CHAR(4),
   cor VARCHAR(20),
   fkMotorista INT,
-  FOREIGN KEY (fkMotorista) REFERENCES Motorista(idMotorista)
+  FOREIGN KEY (fkMotorista) REFERENCES motorista(idMotorista)
 );
 
 CREATE TABLE infracao (
