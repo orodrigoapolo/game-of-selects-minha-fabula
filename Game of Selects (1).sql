@@ -1,5 +1,4 @@
 CREATE DATABASE gameofselects;
-
 USE gameofselects;
 
 CREATE TABLE motorista (
@@ -55,7 +54,7 @@ CREATE TABLE vistoria (
   fkveiculo INT,
 	FOREIGN KEY (fkveiculo) REFERENCES veiculo(idVeiculo),
   data_vistoria DATE,
-  tipo_vistoria VARCHAR(20)
+  tipo_vistoria VARCHAR(30)
 		CONSTRAINT chk_tipo_vistoria CHECK (tipo_vistoria IN ('Anual', 'Transferência', 'Mudança de Propriedade')),
   resultado_vistoria VARCHAR (10)
 		CONSTRAINT chk_resultado_vistoria CHECK (resultado_vistoria IN ('Aprovado', 'Reprovado')),
@@ -142,6 +141,8 @@ VALUES
 (5, '2023-06-30', 'Anual', 'Aprovado', 'Tudo conforme esperado'),
 (6, '2023-08-01', 'Transferência', 'Reprovado', 'Problema no motor');
 
+desc vistoria;
+
 INSERT INTO categoria (nome, descricao)
 VALUES
 ('A', 'Categoria A - Para conduzir motocicletas'),
@@ -157,7 +158,7 @@ VALUES
 (4, 2),  -- Maria Costa, Categoria B (Carros de passeio)
 (5, 3),  -- Fernanda Souza, Categoria C (Veículos de carga)
 (6, 2),  -- Ricardo Almeida, Categoria B (Carros de passeio)
-(1, 2),  -- Tatiane Lima, Categoria B (Carros de passeio)
-(2, 1),  -- Eduardo Martins, Categoria A (Motocicletas)
-(3, 4),  -- Juliana Costa, Categoria D (Veículos de transporte de passageiros)
-(4, 2);  -- Felipe Rocha, Categoria B (Carros de passeio)
+(7, 2),  -- Tatiane Lima, Categoria B (Carros de passeio)
+(8, 1),  -- Eduardo Martins, Categoria A (Motocicletas)
+(9, 4),  -- Juliana Costa, Categoria D (Veículos de transporte de passageiros)
+(10, 2);  -- Felipe Rocha, Categoria B (Carros de passeio)
