@@ -5,11 +5,7 @@ CREATE TABLE motorista (
   idMotorista INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(100),
   cpf CHAR(11) UNIQUE,
-  data_nascimento DATE,
-  data_emissao_cnh DATE,
-  data_vencimento_cnh DATE,
-  status_cnh VARCHAR (10)
-	CONSTRAINT chkcnh_status CHECK (status_cnh IN ('Ativa', 'Suspensa', 'Vencida', 'Pendente'))
+  data_nascimento DATE
 );
 
 CREATE TABLE endereco (
@@ -71,23 +67,28 @@ descricao VARCHAR (255)
 CREATE TABLE habilitacao (
 fkMotorista INT,
 fkCategoria INT,
+status_cnh VARCHAR (10),
+data_emissao_cnh DATE,
+data_vencimento_cnh DATE,
+CONSTRAINT chkcnh_status CHECK (status_cnh IN ('Ativa', 'Suspensa', 'Vencida', 'Pendente')),
 PRIMARY KEY (fkMotorista, fkCategoria),
 	FOREIGN KEY (fkMotorista) REFERENCES motorista(idMotorista),
     FOREIGN KEY (fkCategoria) REFERENCES categoria(idCategoria)
 );
 
-INSERT INTO motorista (nome, cpf, data_nascimento, data_emissao_cnh, data_vencimento_cnh, status_cnh)
+INSERT INTO motorista (nome, cpf, data_nascimento)
 VALUES 
-('Carlos Silva', '12345678901', '1985-04-15', '2015-06-10', '2025-06-10', 'Ativa'),
-('Ana Oliveira', '98765432100', '1990-07-30', '2018-08-15', '2023-08-15', 'Vencida'),
-('João Pereira', '11223344556', '1992-11-20', '2019-02-05', '2024-02-05', 'Suspensa'),
-('Maria Costa', '22334455667', '1980-03-22', '2010-11-10', '2025-11-10', 'Ativa'),
-('Fernanda Souza', '32165498700', '1983-02-25', '2016-09-20', '2026-09-20', 'Ativa'),
-('Ricardo Almeida', '65498732100', '1975-12-05', '2014-11-18', '2024-11-18', 'Vencida'),
-('Tatiane Lima', '45678912345', '1995-06-13', '2017-03-10', '2022-03-10', 'Suspensa'),
-('Eduardo Martins', '78945612300', '1988-08-14', '2020-05-30', '2025-05-30', 'Ativa'),
-('Juliana Costa', '85296374123', '1980-01-10', '2012-06-15', '2022-06-15', 'Suspensa'),
-('Felipe Rocha', '36925814700', '1992-09-28', '2019-07-21', '2024-07-21', 'Pendente');
+('Carlos Silva', '12345678901', '1985-04-15'),
+('Ana Oliveira', '98765432100', '1990-07-30'),
+('João Pereira', '11223344556', '1992-11-20'),
+('Maria Costa', '22334455667', '1980-03-22'),
+('Fernanda Souza', '32165498700', '1983-02-25'),
+('Ricardo Almeida', '65498732100', '1975-12-05'),
+('Tatiane Lima', '45678912345', '1995-06-13'),
+('Eduardo Martins', '78945612300', '1988-08-14'),
+('Juliana Costa', '85296374123', '1980-01-10'),
+('Felipe Rocha', '36925814700', '1992-09-28');
+
 
 INSERT INTO endereco (fkMotorista, logradouro, bairro, numero, cidade, uf, cep)
 VALUES
@@ -150,15 +151,16 @@ VALUES
 ('C', 'Categoria C - Para conduzir veículos de carga'),
 ('D', 'Categoria D - Para conduzir veículos de transporte de passageiros');
 
-INSERT INTO habilitacao (fkMotorista, fkCategoria)
+
+INSERT INTO habilitacao (fkMotorista, fkCategoria, data_emissao_cnh, data_vencimento_cnh, status_cnh)
 VALUES
-(1, 2),  -- Carlos Silva, Categoria B (Carros de passeio)
-(2, 3),  -- Ana Oliveira, Categoria C (Veículos de carga)
-(3, 1),  -- João Pereira, Categoria A (Motocicletas)
-(4, 2),  -- Maria Costa, Categoria B (Carros de passeio)
-(5, 3),  -- Fernanda Souza, Categoria C (Veículos de carga)
-(6, 2),  -- Ricardo Almeida, Categoria B (Carros de passeio)
-(7, 2),  -- Tatiane Lima, Categoria B (Carros de passeio)
-(8, 1),  -- Eduardo Martins, Categoria A (Motocicletas)
-(9, 4),  -- Juliana Costa, Categoria D (Veículos de transporte de passageiros)
-(10, 2);  -- Felipe Rocha, Categoria B (Carros de passeio)
+(1, 2, '2015-06-10', '2025-06-10', 'Ativa'),  -- Carlos Silva, Categoria B (Carros de passeio)
+(2, 3, '2018-08-15', '2023-08-15', 'Vencida'),  -- Ana Oliveira, Categoria C (Veículos de carga)
+(3, 1, '2019-02-05', '2024-02-05', 'Suspensa'),  -- João Pereira, Categoria A (Motocicletas)
+(4, 2, '2010-11-10', '2025-11-10', 'Ativa'),  -- Maria Costa, Categoria B (Carros de passeio)
+(5, 3, '2016-09-20', '2026-09-20', 'Ativa'),  -- Fernanda Souza, Categoria C (Veículos de carga)
+(6, 2, '2014-11-18', '2024-11-18', 'Vencida'),  -- Ricardo Almeida, Categoria B (Carros de passeio)
+(7, 2, '2017-03-10', '2022-03-10', 'Suspensa'),  -- Tatiane Lima, Categoria B (Carros de passeio)
+(8, 1, '2020-05-30', '2025-05-30', 'Ativa'),  -- Eduardo Martins, Categoria A (Motocicletas)
+(9, 4, '2012-06-15', '2022-06-15', 'Suspensa'),  -- Juliana Costa, Categoria D (Veículos de transporte de passageiros)
+(10, 2, '2019-07-21', '2024-07-21', 'Pendente');  -- Felipe Rocha, Categoria B (Carros de passeio)
